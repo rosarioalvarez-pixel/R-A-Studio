@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>R.A Studio | Rosario Álvarez — Diseñadora Web</title>
+  <meta name="description" content="R.A Studio — Rosario Álvarez | Diseñadora web. Landings y sitios modernos con estilo neon (fuccia + verde manzana) y foco en conversión por WhatsApp." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="R.A Studio | Rosario Álvarez — Diseñadora Web" />
+  <meta property="og:description" content="Landings y sitios web modernos con foco en conversión. Contacto directo por WhatsApp." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://iili.io/fLU9uxs.jpg" />
+
+  <meta name="theme-color" content="#07070A" />
 
   <style>
     :root{
@@ -11,113 +21,87 @@
       --black2:#0B0B12;
       --white:#F5F7FF;
       --muted:rgba(245,247,255,.72);
+      --muted2:rgba(245,247,255,.55);
       --line:rgba(245,247,255,.14);
 
       --fuchsia:#FF1FBF;
       --apple:#A8FF2A;
 
       --radius:22px;
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
       --shadow2: 0 12px 40px rgba(0,0,0,.45);
-      --max:1180px;
+
+      --max: 1180px;
+
+      --overlay-url: url("https://iili.io/fLSU3OP.jpg");
+      --logo-url: url("https://iili.io/fLU9uxs.jpg");
+
+      --wa: "+54 9 11 6267-3358";
+      --wa_link: "https://wa.me/5491162673358";
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: linear-gradient(160deg, var(--black), var(--black2));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--white);
+      background: radial-gradient(1200px 900px at 15% 10%, rgba(255,31,191,.12), transparent 60%),
+                  radial-gradient(1000px 800px at 90% 20%, rgba(168,255,42,.10), transparent 60%),
+                  linear-gradient(160deg, var(--black), var(--black2));
+      overflow-x:hidden;
     }
 
-    .container{
-      width:min(var(--max), calc(100% - 40px));
-      margin:auto;
-    }
-
-    .section{padding:40px 0}
-
-    .portfolioGrid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:16px;
-    }
-
-    .card{
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background:rgba(245,247,255,.04);
-      box-shadow:var(--shadow2);
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
+    /* === CAMBIO: thumb más chica === */
     .thumb{
-      height:160px;
       border-radius:18px;
-      background-size:cover;
-      background-position:center;
-      border:1px solid var(--line);
+      border:1px solid rgba(245,247,255,.12);
+      background-size: cover;
+      background-position: center;
+      height:120px; /* antes 160px */
+      position:relative;
+      overflow:hidden;
     }
-
-    .btn{
-      border-radius:999px;
-      padding:10px 14px;
-      border:1px solid var(--line);
-      background:linear-gradient(90deg, rgba(255,31,191,.18), rgba(168,255,42,.18));
-      color:var(--white);
-      text-decoration:none;
-      font-weight:700;
-      width:fit-content;
-    }
-
-    .tag{
-      font-size:12px;
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:999px;
-    }
-
-    .meta{display:flex;gap:6px;flex-wrap:wrap}
   </style>
 </head>
 
 <body>
 
-  <section id="portfolio" class="section">
-    <div class="container">
-      <h2>Portfolio</h2>
+<!-- ===== PORTFOLIO (SOLO PRIMER CARD EDITADO) ===== -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="portfolioGrid">
 
-      <div class="portfolioGrid">
-
-        <!-- PROYECTO EDITADO -->
-        <div class="card">
-          <div
-            class="thumb"
-            style="background-image:url('https://iili.io/ftc5iN4.md.jpg')">
-          </div>
-
-          <b>Landing para servicio</b>
-          <p>Hero fuerte + beneficios + prueba social + CTA a WhatsApp.</p>
-
-          <a
-            href="https://pasteleria-r3uw.onrender.com/"
-            target="_blank"
-            class="btn">
-            Ver proyecto
-          </a>
-
-          <div class="meta">
-            <span class="tag">Landing</span>
-            <span class="tag">Neon</span>
-            <span class="tag">Conversión</span>
-          </div>
+      <div class="card work">
+        <div
+          class="thumb"
+          style="background-image:url('https://iili.io/ftc5iN4.md.jpg')"
+          aria-hidden="true">
         </div>
 
+        <b>Landing para servicio</b>
+        <p>Hero fuerte + beneficios + prueba social + CTA a WhatsApp.</p>
+
+        <a
+          href="https://pasteleria-r3uw.onrender.com/"
+          target="_blank"
+          class="btn btnPrimary"
+          style="width:fit-content">
+          Ver proyecto
+        </a>
+
+        <div class="meta">
+          <span class="tag">Landing</span>
+          <span class="tag">Neon</span>
+          <span class="tag">Conversion</span>
+        </div>
       </div>
+
+      <!-- las otras cards quedan IGUAL -->
+
     </div>
-  </section>
+  </div>
+</section>
 
 </body>
 </html>
