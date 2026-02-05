@@ -616,6 +616,48 @@
       .navCTA{ gap:8px; }
       .burger{ display:inline-flex; align-items:center; gap:10px; }
     }
+
+    /* --- Estilos preview (antes/después) --- */
+    .previewFrame{
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(245,247,255,.10);
+      background: linear-gradient(180deg, rgba(245,247,255,.02), rgba(245,247,255,.01));
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .previewHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      padding:8px 10px;
+      background: rgba(245,247,255,.02);
+      border-bottom:1px solid rgba(245,247,255,.04);
+    }
+    .previewHeader strong{ font-size:13px; color:var(--muted); }
+    .previewControls{ display:flex; gap:8px; align-items:center; }
+    .previewControls button{
+      appearance:none;border:1px solid rgba(245,247,255,.08);background:transparent;color:var(--muted);
+      padding:6px 8px;border-radius:8px;cursor:pointer;font-weight:800;
+    }
+    .previewFooter{
+      padding:8px 10px;
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      align-items:center;
+    }
+    .previewFooter a{
+      text-decoration:none;color:var(--muted);font-weight:800;font-size:13px;border:1px solid rgba(245,247,255,.06);
+      padding:6px 10px;border-radius:8px;background:rgba(245,247,255,.02);
+    }
+    @media (max-width: 720px){
+      .previewHeader{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .previewFooter{ justify-content:flex-start; }
+      #previewIframe{ height:200px !important; }
+    }
   </style>
 </head>
 
@@ -806,13 +848,33 @@
             </div>
           </div>
 
+          <!-- --- Rediseño / Optimización: preview con bucle entre "antes" y "después" --- -->
           <div class="card work">
-            <div class="thumb" aria-hidden="true">
-              <!-- imagen genérica para Rediseño/Optimización -->
-              <img src="https://picsum.photos/seed/optimize/800/600" alt="Mockup rediseño" style="width:100%;height:100%;object-fit:cover;display:block;" aria-hidden="true" />
+            <div class="thumb" aria-hidden="true" style="padding:10px;">
+              <div class="previewFrame" id="previewFrame" aria-live="polite">
+                <div class="previewHeader">
+                  <strong id="previewLabel">Antes</strong>
+                  <div class="previewControls" role="toolbar" aria-label="Controles de vista previa">
+                    <button id="prevBtn" title="Anterior" aria-label="Anterior">◀</button>
+                    <button id="playPauseBtn" title="Pausar" aria-label="Pausar">⏸</button>
+                    <button id="nextBtn" title="Siguiente" aria-label="Siguiente">▶</button>
+                  </div>
+                </div>
+
+                <!-- iframe con sandbox (puede bloquearse según X-Frame-Options) -->
+                <iframe id="previewIframe" src="https://optimizacionn.onrender.com/#" title="Preview sitio" style="width:100%;height:220px;border:0;border-radius:12px;" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
+
+                <div class="previewFooter">
+                  <a id="openPreview" href="https://optimizacionn.onrender.com/#" target="_blank" rel="noopener">Abrir en nueva pestaña</a>
+                </div>
+
+                <p id="previewNote" class="note" style="margin:10px;padding:0 10px 14px 10px;font-size:12px;color:var(--muted2)">
+                  Si el sitio no carga dentro del preview, hacé click en "Abrir en nueva pestaña".
+                </p>
+              </div>
             </div>
             <b>Rediseño/Optimización</b>
-            <p>Mejoras en legibilidad, velocidad y CTA para aumentar consultas.</p>
+            <p>Compará el antes y el después: estética, jerarquía y CTA mejorados. (Rotación automática)</p>
             <div class="meta">
               <span class="tag">Audit</span><span class="tag">UX</span><span class="tag">Performance</span>
             </div>
@@ -1104,6 +1166,109 @@ ${d}
 
     // Cerrar menú mobile al tocar link
     links.forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
+  </script>
+
+  <!-- Script adicional: preview antes/después con bucle -->
+  <script>
+    (function(){
+      // URLs a rotar (editar aquí si querés otros enlaces)
+      const previews = [
+        { title: "Antes", url: "https://optimizacionn.onrender.com/#" },
+        { title: "Después", url: "https://rediseno-2.onrender.com/" }
+      ];
+
+      const iframe = document.getElementById("previewIframe");
+      const label = document.getElementById("previewLabel");
+      const openLink = document.getElementById("openPreview");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const previewNote = document.getElementById("previewNote");
+      const previewFrame = document.getElementById("previewFrame");
+
+      let index = 0;
+      let interval = null;
+      let autoplay = true;
+      let wasAutoplayBeforeHover = false;
+      const ROTATE_MS = 4000; // tiempo entre cambios
+
+      function show(i){
+        i = ((i % previews.length) + previews.length) % previews.length;
+        index = i;
+        const p = previews[i];
+        label.textContent = p.title;
+        iframe.src = p.url;
+        openLink.href = p.url;
+        // mostrar nota hasta que cargue
+        previewNote.style.display = "block";
+      }
+
+      function updatePlayButton(){
+        playPauseBtn.textContent = autoplay ? "⏸" : "▶";
+        playPauseBtn.title = autoplay ? "Pausar" : "Reproducir";
+        playPauseBtn.setAttribute('aria-label', autoplay ? 'Pausar rotación' : 'Reproducir rotación');
+      }
+
+      function start(){
+        stop();
+        interval = setInterval(() => {
+          show(index + 1);
+        }, ROTATE_MS);
+        autoplay = true;
+        updatePlayButton();
+      }
+
+      function stop(){
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+        autoplay = false;
+        updatePlayButton();
+      }
+
+      // controles
+      prevBtn.addEventListener("click", () => {
+        show(index - 1);
+        if (autoplay) { start(); } // reinicia timer para que el usuario vea el cambio
+      });
+      nextBtn.addEventListener("click", () => {
+        show(index + 1);
+        if (autoplay) { start(); }
+      });
+      playPauseBtn.addEventListener("click", () => {
+        if (autoplay) stop(); else start();
+      });
+
+      // Pausar al hacer hover (mejora UX)
+      previewFrame.addEventListener("mouseenter", () => {
+        wasAutoplayBeforeHover = autoplay;
+        if (autoplay) stop();
+      });
+      previewFrame.addEventListener("mouseleave", () => {
+        if (wasAutoplayBeforeHover) start();
+      });
+
+      // detectar carga del iframe para ocultar la nota
+      iframe.addEventListener("load", () => {
+        // si la página se carga dentro del iframe, ocultamos la nota
+        previewNote.style.display = "none";
+      });
+
+      // Manejar fallback en caso de que el iframe no pueda cargar (X-Frame-Options)
+      // No siempre podemos detectar errores cross-origin, así que dejamos el link visible.
+      // Inicializar
+      show(0);
+      start();
+
+      // Accesibilidad con teclado: permitir flechas para cambiar preview cuando el previewFrame tenga foco
+      previewFrame.tabIndex = 0;
+      previewFrame.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") { prevBtn.click(); }
+        if (e.key === "ArrowRight") { nextBtn.click(); }
+        if (e.key === " " || e.key === "Spacebar") { e.preventDefault(); playPauseBtn.click(); }
+      });
+    })();
   </script>
 </body>
 </html>
