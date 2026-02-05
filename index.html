@@ -22,30 +22,22 @@
       --white:#F5F7FF;
       --muted:rgba(245,247,255,.72);
       --muted2:rgba(245,247,255,.55);
-      --line:rgba(245,247,255,.14);
 
-      /* Colores pedidos */
-      --fuchsia:#FF1FBF;     /* fuccia */
-      --apple:#A8FF2A;       /* verde manzana */
+      --fuchsia:#FF1FBF;
+      --apple:#A8FF2A;
 
       --radius:22px;
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
-      --shadow2: 0 12px 40px rgba(0,0,0,.45);
-
-      --max: 1180px;
+      --max:1180px;
 
       --overlay-url: url("https://iili.io/fLSU3OP.jpg");
       --logo-url: url("https://iili.io/fLU9uxs.jpg");
-
-      --wa: "+54 9 11 6267-3358";
-      --wa_link: "https://wa.me/5491162673358";
     }
 
     *{ box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--white);
       background: radial-gradient(1200px 900px at 15% 10%, rgba(255,31,191,.12), transparent 60%),
                   radial-gradient(1000px 800px at 90% 20%, rgba(168,255,42,.10), transparent 60%),
@@ -53,611 +45,61 @@
       overflow-x:hidden;
     }
 
-    /* Fondo overlay + pulso neon */
-    .bg{
-      position:fixed;
-      inset:0;
-      z-index:-3;
-      background:
-        linear-gradient(180deg, rgba(7,7,10,.78), rgba(7,7,10,.88)),
-        var(--overlay-url);
-      background-size: cover;
-      background-position:center;
-      filter: saturate(1.05) contrast(1.06);
-      transform: translateZ(0);
-    }
-    .pulse{
-      position:fixed;
-      inset:-20%;
-      z-index:-2;
-      pointer-events:none;
-      opacity:.9;
-      background:
-        radial-gradient(600px 420px at 20% 20%, rgba(255,31,191,.30), transparent 60%),
-        radial-gradient(520px 420px at 78% 25%, rgba(168,255,42,.22), transparent 62%),
-        radial-gradient(700px 520px at 55% 85%, rgba(255,31,191,.18), transparent 65%);
-      animation: neonPulse 6.2s ease-in-out infinite;
-      filter: blur(10px);
-    }
-    @keyframes neonPulse{
-      0%   { transform: scale(1) translateY(0); opacity:.78; }
-      50%  { transform: scale(1.06) translateY(-6px); opacity:1; }
-      100% { transform: scale(1) translateY(0); opacity:.78; }
-    }
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior:auto; }
-      .pulse{ animation:none; }
-      .float-wa{ animation:none !important; }
-    }
+    .bg{ position:fixed; inset:0; z-index:-3; background: linear-gradient(180deg, rgba(7,7,10,.78), rgba(7,7,10,.88)), var(--overlay-url); background-size:cover; background-position:center; }
+    .pulse{ position:fixed; inset:-20%; z-index:-2; pointer-events:none; opacity:.9; background: radial-gradient(600px 420px at 20% 20%, rgba(255,31,191,.30), transparent 60%), radial-gradient(520px 420px at 78% 25%, rgba(168,255,42,.22), transparent 62%); filter: blur(10px); }
 
-    /* Layout */
-    .container{
-      width:min(var(--max), calc(100% - 40px));
-      margin:0 auto;
-    }
+    .container{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
 
-    /* Header */
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,7,10,.62);
-      border-bottom:1px solid rgba(245,247,255,.10);
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 0;
-    }
+    header{ position:sticky; top:0; z-index:50; backdrop-filter: blur(14px); background: rgba(7,7,10,.62); border-bottom:1px solid rgba(245,247,255,.10); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:220px; }
+    .logo{ width:44px; height:44px; border-radius:14px; background-image: var(--logo-url); background-size:cover; background-position:center; }
+    .brandText b{ font-size:14px; }
+    .brandText span{ font-size:12px; color:var(--muted); }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 220px;
-    }
-    .logo{
-      width:44px;
-      height:44px;
-      border-radius:14px;
-      background-image: var(--logo-url);
-      background-size: cover;
-      background-position:center;
-      box-shadow: 0 0 0 1px rgba(245,247,255,.10), 0 10px 24px rgba(0,0,0,.35);
-      flex:0 0 auto;
-    }
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-    }
-    .brandText b{
-      font-size:14px;
-      letter-spacing:.4px;
-    }
-    .brandText span{
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.2px;
-    }
+    .navCTA{ display:flex; gap:10px; align-items:center; }
+    .btn{ appearance:none; border:1px solid rgba(245,247,255,.14); background: rgba(245,247,255,.06); color:var(--white); border-radius:999px; padding:11px 14px; font-weight:800; font-size:13px; text-decoration:none; display:inline-flex; gap:8px; align-items:center; }
+    .btnPrimary{ border-color: rgba(168,255,42,.42); background: linear-gradient(90deg, rgba(255,31,191,.16), rgba(168,255,42,.16)); }
 
-    .navLinks{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .navLinks a{
-      text-decoration:none;
-      color:var(--muted);
-      font-weight:650;
-      font-size:13px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid transparent;
-      transition: .15s ease;
-    }
-    .navLinks a:hover{
-      color:var(--white);
-      border-color: rgba(245,247,255,.14);
-      background: rgba(245,247,255,.06);
-    }
-    .navLinks a.active{
-      color:var(--white);
-      border-color: rgba(255,31,191,.35);
-      box-shadow: 0 0 0 3px rgba(255,31,191,.10);
-      background: rgba(255,31,191,.08);
-    }
+    .hero{ padding:54px 0 22px; }
+    .heroGrid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; }
+    @media (max-width:920px){ .heroGrid{ grid-template-columns:1fr; } }
 
-    .navCTA{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid rgba(245,247,255,.14);
-      background: rgba(245,247,255,.06);
-      color:var(--white);
-      border-radius: 999px;
-      padding:11px 14px;
-      font-weight:800;
-      font-size:13px;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(245,247,255,.10);
-      border-color: rgba(245,247,255,.22);
-    }
-    .btnPrimary{
-      border-color: rgba(168,255,42,.42);
-      background: linear-gradient(90deg, rgba(255,31,191,.16), rgba(168,255,42,.16));
-      box-shadow: 0 0 0 3px rgba(168,255,42,.08);
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, var(--apple), var(--fuchsia));
-      box-shadow: 0 0 22px rgba(168,255,42,.45), 0 0 24px rgba(255,31,191,.35);
-    }
+    .card{ border-radius: var(--radius); border:1px solid rgba(245,247,255,.12); background: rgba(10,10,16,.55); overflow:hidden; position:relative; }
+    .cardInner{ padding:24px; }
 
-    /* Hero */
-    .hero{
-      padding: 54px 0 22px;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 920px){
-      .heroGrid{ grid-template-columns: 1fr; }
-    }
+    .kicker{ display:inline-flex; gap:10px; padding:8px 12px; border-radius:999px; background: rgba(245,247,255,.05); color:var(--muted); font-weight:750; font-size:12px; }
 
-    .card{
-      border-radius: var(--radius);
-      border:1px solid rgba(245,247,255,.12);
-      background: rgba(10,10,16,.55);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(500px 220px at 20% 0%, rgba(255,31,191,.18), transparent 60%),
-        radial-gradient(460px 240px at 90% 20%, rgba(168,255,42,.12), transparent 60%);
-      pointer-events:none;
-    }
-    .cardInner{
-      position:relative;
-      padding:24px;
-    }
+    h1{ margin:14px 0 10px; font-size: clamp(30px, 4.2vw, 54px); line-height:1.02; }
+    .grad{ background: linear-gradient(90deg, var(--fuchsia), var(--apple)); -webkit-background-clip:text; color:transparent; background-clip:text; }
 
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(245,247,255,.14);
-      background: rgba(245,247,255,.05);
-      color:var(--muted);
-      font-weight:750;
-      font-size:12px;
-      letter-spacing:.25px;
-    }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+    @media (max-width:980px){ .grid3{ grid-template-columns: 1fr; } }
 
-    h1{
-      margin:14px 0 10px;
-      font-size: clamp(30px, 4.2vw, 54px);
-      line-height:1.02;
-      letter-spacing:-.6px;
-    }
-    .grad{
-      background: linear-gradient(90deg, var(--fuchsia), var(--apple));
-      -webkit-background-clip: text;
-      background-clip:text;
-      color:transparent;
-    }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.55;
-      max-width: 62ch;
-    }
+    .portfolioGrid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+    @media (max-width:980px){ .portfolioGrid{ grid-template-columns: 1fr; } }
 
-    .heroActions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:16px;
-    }
+    .thumb{ border-radius:18px; border:1px solid rgba(245,247,255,.12); background: linear-gradient(180deg, rgba(245,247,255,.02), rgba(245,247,255,.01)); height:160px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
 
-    .chips{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-    .chip{
-      font-size:12px;
-      font-weight:750;
-      color:rgba(245,247,255,.82);
-      border:1px solid rgba(245,247,255,.12);
-      background: rgba(245,247,255,.05);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-
-    /* Panel filtro (para leads de mejor calidad) */
-    .filterTitle{
-      margin:0 0 6px;
-      font-size:14px;
-      color:rgba(245,247,255,.9);
-      font-weight:850;
-      letter-spacing:.2px;
-    }
-    .filterSub{
-      margin:0 0 14px;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.45;
-    }
-    .options{
-      display:grid;
-      gap:10px;
-    }
-    .opt{
-      border-radius:18px;
-      border:1px solid rgba(245,247,255,.12);
-      background: rgba(245,247,255,.04);
-      padding:12px 12px;
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      cursor:pointer;
-      transition:.15s ease;
-      user-select:none;
-    }
-    .opt:hover{
-      background: rgba(245,247,255,.07);
-      border-color: rgba(245,247,255,.18);
-      transform: translateY(-1px);
-    }
-    .opt .badge{
-      width:12px; height:12px;
-      border-radius:999px;
-      margin-top:4px;
-      background: rgba(245,247,255,.18);
-      box-shadow: 0 0 0 3px rgba(245,247,255,.05);
-      flex:0 0 auto;
-    }
-    .opt.active{
-      border-color: rgba(168,255,42,.42);
-      box-shadow: 0 0 0 4px rgba(168,255,42,.08);
-      background: linear-gradient(90deg, rgba(255,31,191,.10), rgba(168,255,42,.10));
-    }
-    .opt.active .badge{
-      background: radial-gradient(circle at 30% 30%, var(--apple), var(--fuchsia));
-      box-shadow: 0 0 26px rgba(168,255,42,.38), 0 0 22px rgba(255,31,191,.25);
-    }
-    .opt b{ display:block; font-size:13px; }
-    .opt span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; line-height:1.35; }
-
-    /* Secciones */
-    section{
-      scroll-margin-top: 92px;
-    }
-    .section{
-      padding: 22px 0;
-    }
-    .sectionHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      margin: 10px 0 12px;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size: clamp(20px, 2.4vw, 30px);
-      letter-spacing:-.2px;
-    }
-    .sectionHead p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      max-width: 52ch;
-      line-height:1.45;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 980px){
-      .grid3{ grid-template-columns: 1fr; }
-    }
-
-    .feature{
-      padding:18px;
-    }
-    .feature .icon{
-      width:40px; height:40px;
-      border-radius:14px;
-      background: rgba(245,247,255,.06);
-      border:1px solid rgba(245,247,255,.12);
-      display:grid;
-      place-items:center;
-      margin-bottom:12px;
-      box-shadow: 0 14px 30px rgba(0,0,0,.25);
-      position:relative;
-    }
-    .feature .icon::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius:14px;
-      background: linear-gradient(135deg, rgba(255,31,191,.25), rgba(168,255,42,.22));
-      filter: blur(10px);
-      z-index:-1;
-      opacity:.8;
-    }
-    .feature h3{
-      margin:0 0 6px;
-      font-size:15px;
-      letter-spacing:.2px;
-    }
-    .feature p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.5;
-    }
-
-    /* Portfolio mock cards */
-    .portfolioGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 980px){
-      .portfolioGrid{ grid-template-columns: 1fr; }
-    }
-    .work{
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .thumb{
-      border-radius:18px;
-      border:1px solid rgba(245,247,255,.12);
-      background:
-        radial-gradient(420px 220px at 20% 20%, rgba(255,31,191,.18), transparent 60%),
-        radial-gradient(420px 240px at 80% 30%, rgba(168,255,42,.12), transparent 60%),
-        linear-gradient(180deg, rgba(245,247,255,.06), rgba(245,247,255,.02));
-      height: 160px;
-      position:relative;
-      overflow:hidden;
-    }
-    .thumb::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background:
-        radial-gradient(220px 160px at 35% 35%, rgba(255,31,191,.26), transparent 60%),
-        radial-gradient(220px 160px at 70% 55%, rgba(168,255,42,.20), transparent 62%);
-      animation: floatGlow 7.5s ease-in-out infinite;
-      filter: blur(8px);
-      opacity:.9;
-    }
-    @keyframes floatGlow{
-      0%{ transform: translate(0,0) scale(1); }
-      50%{ transform: translate(-14px, -10px) scale(1.06); }
-      100%{ transform: translate(0,0) scale(1); }
-    }
-    .work b{ font-size:14px; }
+    .work b{ font-size:14px; display:block; margin-top:8px; }
     .work p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; }
-    .work .meta{
-      display:flex; gap:8px; flex-wrap:wrap;
-    }
-    .tag{
-      font-size:12px;
-      font-weight:750;
-      color:rgba(245,247,255,.86);
-      border:1px solid rgba(245,247,255,.12);
-      background: rgba(245,247,255,.04);
-      padding:7px 10px;
-      border-radius:999px;
+
+    /* Dual preview */
+    .dualPreview{ display:flex; gap:10px; width:100%; }
+    .miniPreview{ flex:1; border-radius:12px; overflow:hidden; border:1px solid rgba(245,247,255,.08); background:rgba(0,0,0,.22); display:flex; flex-direction:column; }
+    .miniPreview .miniHeader{ padding:8px 10px; font-weight:800; color:var(--muted); display:flex; justify-content:space-between; align-items:center; }
+    .miniPreview iframe{ width:100%; height:220px; border:0; display:block; background:#000; }
+    .miniPreview .miniFooter{ padding:8px 10px; display:flex; justify-content:flex-end; gap:8px; }
+    .miniPreview .miniFooter a{ color:var(--muted); text-decoration:none; font-weight:800; font-size:13px; border:1px solid rgba(245,247,255,.06); padding:6px 8px; border-radius:8px; background:rgba(245,247,255,.02); }
+
+    @media (max-width:720px){
+      .dualPreview{ flex-direction:column; }
+      .miniPreview iframe{ height:180px; }
     }
 
-    /* Contact */
-    .contactGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 980px){
-      .contactGrid{ grid-template-columns: 1fr; }
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-top:10px;
-    }
-    label{
-      font-size:12px;
-      font-weight:800;
-      color:rgba(245,247,255,.88);
-      letter-spacing:.25px;
-    }
-    input, textarea, select{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(245,247,255,.14);
-      background: rgba(245,247,255,.04);
-      color:var(--white);
-      outline:none;
-      font-size:14px;
-    }
-    textarea{ min-height: 120px; resize: vertical; }
-    input::placeholder, textarea::placeholder{ color: rgba(245,247,255,.45); }
-    .note{
-      margin:10px 0 0;
-      font-size:12px;
-      color:var(--muted2);
-      line-height:1.45;
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 16px;
-      padding: 24px 0 80px; /* espacio para botón flotante */
-      border-top: 1px solid rgba(245,247,255,.10);
-      background: rgba(7,7,10,.52);
-      backdrop-filter: blur(14px);
-    }
-    .foot{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .foot a{
-      color:rgba(245,247,255,.85);
-      text-decoration:none;
-      border-bottom:1px solid rgba(245,247,255,.25);
-    }
-    .foot a:hover{ border-bottom-color: rgba(168,255,42,.55); }
-
-    /* WhatsApp flotante */
-    .float-wa{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:80;
-      border-radius:999px;
-      padding:12px 14px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      color:var(--white);
-      font-weight:900;
-      letter-spacing:.2px;
-      border:1px solid rgba(168,255,42,.42);
-      background: linear-gradient(90deg, rgba(255,31,191,.18), rgba(168,255,42,.18));
-      box-shadow: 0 18px 40px rgba(0,0,0,.45), 0 0 34px rgba(168,255,42,.22), 0 0 34px rgba(255,31,191,.18);
-      animation: waPulse 1.8s ease-in-out infinite;
-    }
-    @keyframes waPulse{
-      0%,100%{ transform: translateY(0); }
-      50%{ transform: translateY(-2px); }
-    }
-    .waIcon{
-      width:18px;height:18px;border-radius:6px;
-      background: radial-gradient(circle at 30% 30%, var(--apple), var(--fuchsia));
-      box-shadow: 0 0 22px rgba(168,255,42,.32), 0 0 18px rgba(255,31,191,.24);
-    }
-    .float-wa small{
-      display:block;
-      font-size:11px;
-      font-weight:800;
-      color:rgba(245,247,255,.78);
-      margin-top:2px;
-      letter-spacing:.25px;
-    }
-    .float-wa.footer-near{
-      bottom: 88px; /* sube cuando el footer está cerca */
-    }
-
-    /* Mobile nav */
-    .burger{
-      display:none;
-      border:1px solid rgba(245,247,255,.14);
-      background: rgba(245,247,255,.06);
-      color:var(--white);
-      border-radius:14px;
-      padding:10px 12px;
-      font-weight:900;
-      cursor:pointer;
-    }
-    @media (max-width: 860px){
-      .brand{ min-width: unset; }
-      .navLinks{
-        display:none;
-        width:100%;
-        padding:10px 0 0;
-      }
-      .navLinks.open{ display:flex; justify-content:flex-start; }
-      .navCTA{ gap:8px; }
-      .burger{ display:inline-flex; align-items:center; gap:10px; }
-    }
-
-    /* --- Estilos preview (antes/después) --- */
-    .previewFrame{
-      border-radius:12px;
-      overflow:hidden;
-      border:1px solid rgba(245,247,255,.10);
-      background: linear-gradient(180deg, rgba(245,247,255,.02), rgba(245,247,255,.01));
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .previewHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      padding:8px 10px;
-      background: rgba(245,247,255,.02);
-      border-bottom:1px solid rgba(245,247,255,.04);
-    }
-    .previewHeader strong{ font-size:13px; color:var(--muted); }
-    .previewControls{ display:flex; gap:8px; align-items:center; }
-    .previewControls button{
-      appearance:none;border:1px solid rgba(245,247,255,.08);background:transparent;color:var(--muted);
-      padding:6px 8px;border-radius:8px;cursor:pointer;font-weight:800;
-    }
-    .previewFooter{
-      padding:8px 10px;
-      display:flex;
-      justify-content:flex-end;
-      gap:10px;
-      align-items:center;
-    }
-    .previewFooter a{
-      text-decoration:none;color:var(--muted);font-weight:800;font-size:13px;border:1px solid rgba(245,247,255,.06);
-      padding:6px 10px;border-radius:8px;background:rgba(245,247,255,.02);
-    }
-    @media (max-width: 720px){
-      .previewHeader{ flex-direction:column; align-items:flex-start; gap:6px; }
-      .previewFooter{ justify-content:flex-start; }
-      #previewIframe{ height:200px !important; }
-    }
+    footer{ margin-top:16px; padding:24px 0 80px; border-top:1px solid rgba(245,247,255,.10); background: rgba(7,7,10,.52); }
+    .foot{ display:flex; justify-content:space-between; gap:14px; color:var(--muted); }
+    .float-wa{ position:fixed; right:18px; bottom:18px; z-index:80; border-radius:999px; padding:12px 14px; display:flex; gap:10px; align-items:center; background: linear-gradient(90deg, rgba(255,31,191,.18), rgba(168,255,42,.18)); border:1px solid rgba(168,255,42,.42); }
   </style>
 </head>
 
@@ -678,10 +120,11 @@
 
         <div class="navCTA">
           <button class="burger" id="burgerBtn" aria-label="Abrir menú">
-            <span class="dot"></span> Menú
+            <span style="width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--apple),var(--fuchsia));display:inline-block;margin-right:8px;"></span> Menú
           </button>
           <a class="btn btnPrimary" id="navWhatsApp" href="https://wa.me/5491162673358" target="_blank" rel="noopener">
-            <span class="dot"></span> WhatsApp
+            <span style="width:14px;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--apple),var(--fuchsia));display:inline-block;"></span>
+            WhatsApp
           </a>
         </div>
       </div>
@@ -703,7 +146,7 @@
         <div class="heroGrid">
           <div class="card">
             <div class="cardInner">
-              <div class="kicker"><span class="dot"></span> Diseño web con estética neon + foco en conversión</div>
+              <div class="kicker"><span style="width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--apple),var(--fuchsia));display:inline-block;margin-right:8px;"></span> Diseño web con estética neon + foco en conversión</div>
               <h1>
                 R.A Studio: <span class="grad">webs que se ven premium</span><br/>
                 y traen clientes por WhatsApp
@@ -713,68 +156,53 @@
                 para que tu negocio se vea <b>confiable</b> y convierta mejor.
               </p>
 
-              <div class="heroActions">
+              <div style="display:flex;gap:10px;margin-top:16px;">
                 <a class="btn btnPrimary" id="ctaWhatsAppTop" href="https://wa.me/5491162673358" target="_blank" rel="noopener">
-                  <span class="waIcon" aria-hidden="true"></span>
+                  <span style="width:14px;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--apple),var(--fuchsia));display:inline-block;"></span>
                   Hablar por WhatsApp
                 </a>
-                <a class="btn" href="#portfolio">
-                  Ver portfolio
-                </a>
-              </div>
-
-              <div class="chips" aria-label="Características">
-                <div class="chip">Full responsive</div>
-                <div class="chip">Anclajes + scroll suave</div>
-                <div class="chip">Estilo fuccia + verde manzana</div>
-                <div class="chip">Entrega clara y ordenada</div>
+                <a class="btn" href="#portfolio">Ver portfolio</a>
               </div>
             </div>
           </div>
 
-          <!-- Filtro de lead (pre-venta) -->
           <div class="card">
             <div class="cardInner">
               <p class="filterTitle">Elegí lo que necesitás</p>
               <p class="filterSub">Esto arma el mensaje de WhatsApp para ir directo a una propuesta (menos vueltas, mejor cierre).</p>
 
-              <div class="options" id="options">
+              <div class="options" id="options" style="margin-top:8px;">
                 <div class="opt active" data-offer="Landing Express" data-goal="generar consultas rápido" data-time="esta semana">
-                  <div class="badge"></div>
-                  <div>
+                  <div class="badge" style="width:12px;height:12px;border-radius:999px;background:rgba(245,247,255,.18);margin-top:4px;"></div>
+                  <div style="margin-left:8px;">
                     <b>Landing Express</b>
-                    <span>1 página enfocada en WhatsApp + secciones ancladas. Ideal para validar oferta.</span>
+                    <span style="color:var(--muted);font-size:12px;">1 página enfocada en WhatsApp + secciones ancladas.</span>
                   </div>
                 </div>
 
-                <div class="opt" data-offer="Web Completa" data-goal="presencia fuerte y catálogo" data-time="10-14 días">
-                  <div class="badge"></div>
-                  <div>
+                <div class="opt" data-offer="Web Completa" data-goal="presencia fuerte y catálogo" data-time="10-14 días" style="margin-top:8px;">
+                  <div class="badge" style="width:12px;height:12px;border-radius:999px;background:rgba(245,247,255,.18);margin-top:4px;"></div>
+                  <div style="margin-left:8px;">
                     <b>Web Completa</b>
-                    <span>Multi-sección + portfolio + proceso + contacto. Pensada para escalar.</span>
+                    <span style="color:var(--muted);font-size:12px;">Multi-sección + portfolio + proceso + contacto.</span>
                   </div>
                 </div>
 
-                <div class="opt" data-offer="Rediseño / Mejora" data-goal="subir conversiones" data-time="según revisión">
-                  <div class="badge"></div>
-                  <div>
+                <div class="opt" data-offer="Rediseño / Mejora" data-goal="subir conversiones" data-time="según revisión" style="margin-top:8px;">
+                  <div class="badge" style="width:12px;height:12px;border-radius:999px;background:rgba(245,247,255,.18);margin-top:4px;"></div>
+                  <div style="margin-left:8px;">
                     <b>Rediseño / Mejora</b>
-                    <span>Optimización de una web existente: estética, velocidad y CTA.</span>
+                    <span style="color:var(--muted);font-size:12px;">Optimización de una web existente: estética, velocidad y CTA.</span>
                   </div>
                 </div>
               </div>
 
-              <div class="heroActions" style="margin-top:14px;">
-                <a class="btn btnPrimary" id="ctaWhatsAppOffer" href="https://wa.me/5491162673358" target="_blank" rel="noopener">
-                  <span class="waIcon" aria-hidden="true"></span>
-                  Pedir propuesta
-                </a>
+              <div style="margin-top:14px;display:flex;gap:10px;">
+                <a class="btn btnPrimary" id="ctaWhatsAppOffer" href="https://wa.me/5491162673358" target="_blank" rel="noopener">Pedir propuesta</a>
                 <a class="btn" href="#contacto">Dejar detalles</a>
               </div>
 
-              <p class="note">
-                WhatsApp: <b style="color:rgba(245,247,255,.9)">${"--wa--"}</b>
-              </p>
+              <p class="note" style="margin-top:12px;color:var(--muted2);font-size:12px;">WhatsApp: <b style="color:rgba(245,247,255,.9)">+54 9 11 6267-3358</b></p>
             </div>
           </div>
         </div>
@@ -791,7 +219,7 @@
           </div>
         </div>
 
-        <div class="grid3">
+        <div class="grid3" style="margin-top:8px;">
           <div class="card feature">
             <div class="icon">⚡</div>
             <h3>Landing Pages</h3>
@@ -823,59 +251,61 @@
           </div>
         </div>
 
-        <div class="portfolioGrid">
+        <div class="portfolioGrid" style="margin-top:8px;">
           <div class="card work">
             <div class="thumb" aria-hidden="true">
-              <!-- imagen genérica para Landing -->
               <img src="https://iili.io/ftc6WZJ.md.jpg" alt="Mockup landing" style="width:100%;height:100%;object-fit:cover;display:block;" aria-hidden="true" />
             </div>
             <b>Landing para servicio</b>
             <p>Hero fuerte + beneficios + prueba social + CTA a WhatsApp.</p>
-            <div class="meta">
+            <div class="meta" style="margin-top:8px;">
               <span class="tag">Landing</span><span class="tag">Neon</span><span class="tag">Conversion</span>
             </div>
           </div>
 
           <div class="card work">
             <div class="thumb" aria-hidden="true">
-              <!-- imagen genérica para Web de estudio -->
               <img src="https://iili.io/ftVzRhx.md.jpg" alt="Mockup web estudio" style="width:100%;height:100%;object-fit:cover;display:block;" aria-hidden="true" />
             </div>
             <b>Web de estudio</b>
             <p>Secciones ancladas, estructura clara y estética premium.</p>
-            <div class="meta">
+            <div class="meta" style="margin-top:8px;">
               <span class="tag">Web</span><span class="tag">UI/UX</span><span class="tag">Brand</span>
             </div>
           </div>
 
-          <!-- --- Rediseño / Optimización: preview con bucle entre "antes" y "después" --- -->
+          <!-- --- Rediseño / Optimización: mostrar ambos links --- -->
           <div class="card work">
-            <div class="thumb" aria-hidden="true" style="padding:10px;">
-              <div class="previewFrame" id="previewFrame" aria-live="polite">
-                <div class="previewHeader">
-                  <strong id="previewLabel">Antes</strong>
-                  <div class="previewControls" role="toolbar" aria-label="Controles de vista previa">
-                    <button id="prevBtn" title="Anterior" aria-label="Anterior">◀</button>
-                    <button id="playPauseBtn" title="Pausar" aria-label="Pausar">⏸</button>
-                    <button id="nextBtn" title="Siguiente" aria-label="Siguiente">▶</button>
+            <div class="thumb" aria-hidden="true" style="padding:12px;">
+              <div class="dualPreview" role="region" aria-label="Comparación antes y después">
+                <!-- Antes -->
+                <div class="miniPreview" aria-live="polite">
+                  <div class="miniHeader">
+                    <span>Antes</span>
+                    <span style="font-size:12px;color:var(--muted);font-weight:700;">optimizacionn.onrender.com</span>
+                  </div>
+                  <iframe src="https://optimizacionn.onrender.com/#" title="Vista Antes - Optimización" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
+                  <div class="miniFooter">
+                    <a href="https://optimizacionn.onrender.com/#" target="_blank" rel="noopener">Abrir en nueva pestaña</a>
                   </div>
                 </div>
 
-                <!-- iframe con sandbox (puede bloquearse según X-Frame-Options) -->
-                <iframe id="previewIframe" src="https://optimizacionn.onrender.com/#" title="Preview sitio" style="width:100%;height:220px;border:0;border-radius:12px;" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
-
-                <div class="previewFooter">
-                  <a id="openPreview" href="https://optimizacionn.onrender.com/#" target="_blank" rel="noopener">Abrir en nueva pestaña</a>
+                <!-- Después -->
+                <div class="miniPreview" aria-live="polite">
+                  <div class="miniHeader">
+                    <span>Después</span>
+                    <span style="font-size:12px;color:var(--muted);font-weight:700;">rediseno-2.onrender.com</span>
+                  </div>
+                  <iframe src="https://rediseno-2.onrender.com/" title="Vista Después - Rediseño" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
+                  <div class="miniFooter">
+                    <a href="https://rediseno-2.onrender.com/" target="_blank" rel="noopener">Abrir en nueva pestaña</a>
+                  </div>
                 </div>
-
-                <p id="previewNote" class="note" style="margin:10px;padding:0 10px 14px 10px;font-size:12px;color:var(--muted2)">
-                  Si el sitio no carga dentro del preview, hacé click en "Abrir en nueva pestaña".
-                </p>
               </div>
             </div>
             <b>Rediseño/Optimización</b>
-            <p>Compará el antes y el después: estética, jerarquía y CTA mejorados. (Rotación automática)</p>
-            <div class="meta">
+            <p>Compará el antes y el después: estética, jerarquía y CTA mejorados. Si alguno bloquea el iframe, abrilo en nueva pestaña.</p>
+            <div class="meta" style="margin-top:8px;">
               <span class="tag">Audit</span><span class="tag">UX</span><span class="tag">Performance</span>
             </div>
           </div>
@@ -893,7 +323,7 @@
           </div>
         </div>
 
-        <div class="grid3">
+        <div class="grid3" style="margin-top:8px;">
           <div class="card feature">
             <div class="icon">1</div>
             <h3>Brief rápido</h3>
@@ -912,6 +342,7 @@
         </div>
       </div>
     </section>
+
     <!-- CONTACTO -->
     <section id="contacto" class="section">
       <div class="container">
@@ -922,47 +353,33 @@
           </div>
         </div>
 
-        <div class="contactGrid">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
           <div class="card">
             <div class="cardInner">
               <p class="filterTitle">Mandame tu idea</p>
               <p class="filterSub">Esto no envía mails (sin backend). Genera un mensaje listo para WhatsApp.</p>
 
-              <div class="field">
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
                 <label for="name">Nombre</label>
-                <input id="name" type="text" placeholder="Tu nombre" autocomplete="name" />
-              </div>
-
-              <div class="field">
+                <input id="name" type="text" placeholder="Tu nombre" autocomplete="name"/>
                 <label for="biz">Negocio / Rubro</label>
-                <input id="biz" type="text" placeholder="Ej: estética, barbería, comidas, servicios..." />
-              </div>
-
-              <div class="field">
+                <input id="biz" type="text" placeholder="Ej: estética, barbería, comidas..." />
                 <label for="need">¿Qué necesitás?</label>
                 <select id="need">
-                  <option value="Landing Express">Landing Express</option>
-                  <option value="Web Completa">Web Completa</option>
-                  <option value="Rediseño / Mejora">Rediseño / Mejora</option>
+                  <option>Landing Express</option>
+                  <option>Web Completa</option>
+                  <option>Rediseño / Mejora</option>
                 </select>
-              </div>
-
-              <div class="field">
                 <label for="msg">Detalles</label>
-                <textarea id="msg" placeholder="Contame qué vendés, qué objetivo querés (ventas/turnos/consultas) y si ya tenés Instagram o web."></textarea>
+                <textarea id="msg" placeholder="Contame qué vendés, objetivo y si ya tenés Instagram o web."></textarea>
               </div>
 
-              <div class="heroActions">
-                <a class="btn btnPrimary" id="ctaWhatsAppForm" href="https://wa.me/5491162673358" target="_blank" rel="noopener">
-                  <span class="waIcon" aria-hidden="true"></span>
-                  Enviar por WhatsApp
-                </a>
+              <div style="display:flex;gap:8px;margin-top:12px;">
+                <a class="btn btnPrimary" id="ctaWhatsAppForm" href="https://wa.me/5491162673358" target="_blank" rel="noopener">Enviar por WhatsApp</a>
                 <a class="btn" id="copyMsg" href="javascript:void(0)">Copiar mensaje</a>
               </div>
 
-              <p class="note">
-                WhatsApp: <b style="color:rgba(245,247,255,.9)">+54 9 11 6267-3358</b>
-              </p>
+              <p class="note" style="margin-top:10px;color:var(--muted2);">WhatsApp: <b style="color:rgba(245,247,255,.9)">+54 9 11 6267-3358</b></p>
             </div>
           </div>
 
@@ -971,7 +388,7 @@
               <p class="filterTitle">Datos del estudio</p>
               <p class="filterSub">R.A Studio — Rosario Álvarez | diseñadora web</p>
 
-              <div class="grid3" style="grid-template-columns:1fr; gap:10px;">
+              <div style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px;">
                 <div class="card feature" style="background: rgba(245,247,255,.04);">
                   <div class="icon" aria-hidden="true">📍</div>
                   <h3>Trabajo remoto</h3>
@@ -991,11 +408,8 @@
                 </div>
               </div>
 
-              <div class="heroActions" style="margin-top:14px;">
-                <a class="btn btnPrimary" id="ctaWhatsAppBottom" href="https://wa.me/5491162673358" target="_blank" rel="noopener">
-                  <span class="waIcon" aria-hidden="true"></span>
-                  WhatsApp ahora
-                </a>
+              <div style="display:flex;gap:8px;margin-top:12px;">
+                <a class="btn btnPrimary" id="ctaWhatsAppBottom" href="https://wa.me/5491162673358" target="_blank" rel="noopener">WhatsApp ahora</a>
                 <a class="btn" href="#inicio">Volver arriba</a>
               </div>
             </div>
@@ -1024,11 +438,10 @@
     </div>
   </footer>
 
-  <!-- Botón flotante WhatsApp -->
   <a class="float-wa" id="floatWA" href="https://wa.me/5491162673358" target="_blank" rel="noopener" aria-label="WhatsApp R.A Studio">
-    <span class="waIcon" aria-hidden="true"></span>
+    <span style="width:14px;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--apple),var(--fuchsia));display:inline-block;"></span>
     WhatsApp
-    <small>Respuesta rápida</small>
+    <small style="display:block;font-size:11px;color:var(--muted);margin-left:6px;">Respuesta rápida</small>
   </a>
 
   <script>
@@ -1036,79 +449,23 @@
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
 
-    // Inyectar wa en el texto "note" del panel filtro (sin tocar CSS)
+    // Inject WA en texto (si lo necesitás)
     document.body.innerHTML = document.body.innerHTML.replace("${\"--wa--\"}", "+54 9 11 6267-3358");
 
     // Mobile menu
     const burgerBtn = $("#burgerBtn");
     const navLinks = $("#navLinks");
-    burgerBtn?.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-    });
+    burgerBtn?.addEventListener("click", () => navLinks.classList.toggle("open"));
 
-    // Active link + observer por secciones
+    // Active link observer
     const links = $$("#navLinks a");
     const sections = ["inicio","servicios","portfolio","proceso","contacto"].map(id => document.getElementById(id)).filter(Boolean);
-
-    const setActive = (id) => {
-      links.forEach(a => a.classList.toggle("active", a.dataset.link === id));
-    };
-
+    const setActive = id => links.forEach(a => a.classList.toggle("active", a.dataset.link === id));
     const observer = new IntersectionObserver((entries) => {
-      // elegir la sección más visible
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible?.target?.id) setActive(visible.target.id);
-    }, { root: null, threshold: [0.22, 0.35, 0.5, 0.65] });
-
+    }, { threshold: [0.22,0.35,0.5,0.65] });
     sections.forEach(sec => observer.observe(sec));
-
-    // Construir mensaje WhatsApp con "filtro" (pre-venta)
-    const waBase = "https://wa.me/5491162673358?text=";
-    const opts = $$("#options .opt");
-    const ctaOffer = $("#ctaWhatsAppOffer");
-    const ctaTop = $("#ctaWhatsAppTop");
-    const navWA = $("#navWhatsApp");
-    const floatWA = $("#floatWA");
-
-    let selected = {
-      offer: "Landing Express",
-      goal: "generar consultas rápido",
-      time: "esta semana"
-    };
-
-    function buildOfferMessage(extra=""){
-      const msg =
-`Hola Rosario 👋 Soy ${extra || "—"}.
-Quiero una propuesta para: ${selected.offer}.
-Objetivo: ${selected.goal}.
-Plazo ideal: ${selected.time}.
-
-Te paso mi Instagram/web (si tengo) y lo que vendo. ¿Me decís precio y próximos pasos?`;
-      return waBase + encodeURIComponent(msg);
-    }
-
-    function syncWA(){
-      const link = buildOfferMessage("—");
-      if (ctaOffer) ctaOffer.href = link;
-      if (ctaTop) ctaTop.href = buildOfferMessage("—");
-      if (navWA) navWA.href = buildOfferMessage("—");
-      if (floatWA) floatWA.href = buildOfferMessage("—");
-    }
-
-    opts.forEach(o => {
-      o.addEventListener("click", () => {
-        opts.forEach(x => x.classList.remove("active"));
-        o.classList.add("active");
-        selected = {
-          offer: o.dataset.offer || "Landing Express",
-          goal: o.dataset.goal || "generar consultas rápido",
-          time: o.dataset.time || "esta semana"
-        };
-        syncWA();
-      });
-    });
 
     // Form -> WhatsApp
     const name = $("#name");
@@ -1117,13 +474,13 @@ Te paso mi Instagram/web (si tengo) y lo que vendo. ¿Me decís precio y próxim
     const msg = $("#msg");
     const ctaForm = $("#ctaWhatsAppForm");
     const copyBtn = $("#copyMsg");
+    const waBase = "https://wa.me/5491162673358?text=";
 
     function buildFormText(){
       const n = (name?.value || "").trim() || "—";
       const b = (biz?.value || "").trim() || "—";
       const k = (need?.value || "—").trim();
       const d = (msg?.value || "").trim() || "—";
-
       return `Hola Rosario 👋 Soy ${n}.
 Rubro/negocio: ${b}
 Necesito: ${k}
@@ -1141,7 +498,6 @@ ${d}
 
     [name,biz,need,msg].forEach(el => el?.addEventListener("input", syncFormWA));
     syncFormWA();
-    syncWA();
 
     copyBtn?.addEventListener("click", async () => {
       const text = buildFormText();
@@ -1154,121 +510,18 @@ ${d}
       }
     });
 
-    // Subir botón flotante cuando el footer entra en vista (para que no tape)
+    // Ajustar flotante cuando footer aparece
     const footer = $("#footer");
+    const floatWA = $("#floatWA");
     if (footer && floatWA){
       const footObs = new IntersectionObserver((entries) => {
-        const ent = entries[0];
-        floatWA.classList.toggle("footer-near", ent.isIntersecting);
+        floatWA.classList.toggle("footer-near", entries[0].isIntersecting);
       }, { threshold: 0.08 });
       footObs.observe(footer);
     }
 
-    // Cerrar menú mobile al tocar link
+    // cerrar menú mobile al tocar link
     links.forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
-  </script>
-
-  <!-- Script adicional: preview antes/después con bucle -->
-  <script>
-    (function(){
-      // URLs a rotar (editar aquí si querés otros enlaces)
-      const previews = [
-        { title: "Antes", url: "https://optimizacionn.onrender.com/#" },
-        { title: "Después", url: "https://rediseno-2.onrender.com/" }
-      ];
-
-      const iframe = document.getElementById("previewIframe");
-      const label = document.getElementById("previewLabel");
-      const openLink = document.getElementById("openPreview");
-      const prevBtn = document.getElementById("prevBtn");
-      const nextBtn = document.getElementById("nextBtn");
-      const playPauseBtn = document.getElementById("playPauseBtn");
-      const previewNote = document.getElementById("previewNote");
-      const previewFrame = document.getElementById("previewFrame");
-
-      let index = 0;
-      let interval = null;
-      let autoplay = true;
-      let wasAutoplayBeforeHover = false;
-      const ROTATE_MS = 4000; // tiempo entre cambios
-
-      function show(i){
-        i = ((i % previews.length) + previews.length) % previews.length;
-        index = i;
-        const p = previews[i];
-        label.textContent = p.title;
-        iframe.src = p.url;
-        openLink.href = p.url;
-        // mostrar nota hasta que cargue
-        previewNote.style.display = "block";
-      }
-
-      function updatePlayButton(){
-        playPauseBtn.textContent = autoplay ? "⏸" : "▶";
-        playPauseBtn.title = autoplay ? "Pausar" : "Reproducir";
-        playPauseBtn.setAttribute('aria-label', autoplay ? 'Pausar rotación' : 'Reproducir rotación');
-      }
-
-      function start(){
-        stop();
-        interval = setInterval(() => {
-          show(index + 1);
-        }, ROTATE_MS);
-        autoplay = true;
-        updatePlayButton();
-      }
-
-      function stop(){
-        if (interval) {
-          clearInterval(interval);
-          interval = null;
-        }
-        autoplay = false;
-        updatePlayButton();
-      }
-
-      // controles
-      prevBtn.addEventListener("click", () => {
-        show(index - 1);
-        if (autoplay) { start(); } // reinicia timer para que el usuario vea el cambio
-      });
-      nextBtn.addEventListener("click", () => {
-        show(index + 1);
-        if (autoplay) { start(); }
-      });
-      playPauseBtn.addEventListener("click", () => {
-        if (autoplay) stop(); else start();
-      });
-
-      // Pausar al hacer hover (mejora UX)
-      previewFrame.addEventListener("mouseenter", () => {
-        wasAutoplayBeforeHover = autoplay;
-        if (autoplay) stop();
-      });
-      previewFrame.addEventListener("mouseleave", () => {
-        if (wasAutoplayBeforeHover) start();
-      });
-
-      // detectar carga del iframe para ocultar la nota
-      iframe.addEventListener("load", () => {
-        // si la página se carga dentro del iframe, ocultamos la nota
-        previewNote.style.display = "none";
-      });
-
-      // Manejar fallback en caso de que el iframe no pueda cargar (X-Frame-Options)
-      // No siempre podemos detectar errores cross-origin, así que dejamos el link visible.
-      // Inicializar
-      show(0);
-      start();
-
-      // Accesibilidad con teclado: permitir flechas para cambiar preview cuando el previewFrame tenga foco
-      previewFrame.tabIndex = 0;
-      previewFrame.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") { prevBtn.click(); }
-        if (e.key === "ArrowRight") { nextBtn.click(); }
-        if (e.key === " " || e.key === "Spacebar") { e.preventDefault(); playPauseBtn.click(); }
-      });
-    })();
   </script>
 </body>
 </html>
